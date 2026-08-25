@@ -1,0 +1,12 @@
+diff --git a/chrome/updater/util/win_util.cc b/chrome/updater/util/win_util.cc
+index 441cf84f1c96fa4150413083939381e8a697dc1b..bed617d47315b5663ac81b2651b85d1122d74fe4 100644
+--- a/chrome/updater/util/win_util.cc
++++ b/chrome/updater/util/win_util.cc
+@@ -1333,6 +1333,7 @@ bool MigrateLegacyUpdaters(
+         }
+       }
+ 
++      MigrateApToCohort(registration);
+       register_callback.Run(registration);
+     }
+   }
