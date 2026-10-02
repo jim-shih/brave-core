@@ -10,6 +10,7 @@
 #include "base/strings/sys_string_conversions.h"
 #include "brave/base/apple/foundation_util.h"
 #include "brave/components/brave_shields/core/browser/filter_list_catalog_entry.h"
+#include "components/crx_file/id_util.h"
 
 @interface AdblockFilterListCatalogEntry ()
 @property(nonatomic, copy) NSString* uuid;
@@ -24,7 +25,6 @@
 @property(nonatomic) uint8_t permissionMask;
 @property(nonatomic, copy) NSArray<NSString*>* platforms;
 @property(nonatomic, copy) NSString* componentId;
-@property(nonatomic, copy) NSString* base64PublicKey;
 @end
 
 @implementation AdblockFilterListCatalogEntry
@@ -43,23 +43,10 @@
     self.firstPartyProtections = entry.first_party_protections;
     self.permissionMask = entry.permission_mask;
     self.platforms = brave::vector_to_ns<std::string>(entry.platforms);
-    self.componentId = base::SysUTF8ToNSString(entry.component_id);
-    self.base64PublicKey = base::SysUTF8ToNSString(entry.base64_public_key);
+    self.componentId = base::SysUTF8ToNSString(
+        crx_file::id_util::GenerateIdFromHash(entry.public_key_sha256.value()));
   }
   return self;
-}
-
-- (brave_shields::FilterListCatalogEntry)entry {
-  return brave_shields::FilterListCatalogEntry(
-      base::SysNSStringToUTF8(self.uuid), base::SysNSStringToUTF8(self.url),
-      base::SysNSStringToUTF8(self.title),
-      brave::ns_to_vector<std::string>(self.languages),
-      base::SysNSStringToUTF8(self.supportURL),
-      base::SysNSStringToUTF8(self.desc), self.hidden, self.defaultEnabled,
-      self.firstPartyProtections, self.permissionMask,
-      brave::ns_to_vector<std::string>(self.platforms),
-      base::SysNSStringToUTF8(self.componentId),
-      base::SysNSStringToUTF8(self.base64PublicKey));
 }
 
 - (BOOL)isEqual:(nullable id)object {
@@ -85,16 +72,15 @@
          self.firstPartyProtections == entry.firstPartyProtections &&
          self.permissionMask == entry.permissionMask &&
          [self.platforms isEqual:entry.platforms] &&
-         [self.componentId isEqualToString:entry.componentId] &&
-         [self.base64PublicKey isEqualToString:entry.base64PublicKey];
+         [self.componentId isEqualToString:entry.componentId];
 }
 
 - (NSUInteger)hash {
-  return base::HashCombine(
-      0ull, self.uuid.hash, self.url.hash, self.title.hash, self.languages.hash,
-      self.supportURL.hash, self.desc.hash, self.hidden, self.defaultEnabled,
-      self.firstPartyProtections, self.permissionMask, self.platforms.hash,
-      self.componentId.hash, self.base64PublicKey.hash);
+  return base::HashCombine(0ull, self.uuid.hash, self.url.hash, self.title.hash,
+                           self.languages.hash, self.supportURL.hash,
+                           self.desc.hash, self.hidden, self.defaultEnabled,
+                           self.firstPartyProtections, self.permissionMask,
+                           self.platforms.hash, self.componentId.hash);
 }
 
 @end
