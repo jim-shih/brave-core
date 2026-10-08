@@ -424,10 +424,11 @@ service there. Brave exempts containers only in
 (`chromium_src/components/permissions/permission_util.cc:211`), which this check
 doesn't go through. WebUSB and Web Serial were already blocked the same way.
 
-- [ ] Decide whether device APIs stay off in containers. Allowing them means
+- [x] Decide whether device APIs stay off in containers. Allowing them means
       overriding `IsHidAllowedForFrame` in `browser/hid/brave_hid_delegate.h:23`
-      (and the USB and Serial equivalents) with per-container grant scoping
-- [ ] Pin the chosen behaviour in `browser/containers/containers_browsertest.cc`
+      (and the USB and Serial equivalents) with per-container grant scoping.
+      Decided to keep them off, as for USB and Serial
+- [x] Pin the chosen behaviour in `browser/containers/containers_browsertest.cc`
 
 ### Blink decision model API no longer disabled
 
