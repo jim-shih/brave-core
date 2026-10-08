@@ -68,22 +68,6 @@ void BraveVpnServiceImpl::GetConnectionState(
 }
 
 void BraveVpnServiceImpl::Connect() {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-#if BUILDFLAG(ENABLE_BRAVE_VPN_V2_APPS)
-  if (!agent_client_) {
-    return;
-  }
-  // TODO(https://github.com/brave/brave-browser/issues/59013)
-  // Move this code to a dedicated Mojom API, so the UI "Retry" button in the
-  // "agent unavailable" state will unambiguously trigger a retry of the agent
-  // connection, not the VPN connection.
-  if (connection_state_ == mojom::ConnectionState::CONNECT_NO_AGENT) {
-    UpdateConnectionState(mojom::ConnectionState::DISCONNECTED, std::string());
-    agent_client_->Reset();
-    agent_client_->EnsureConnected();
-    return;
-  }
-#endif  // BUILDFLAG(ENABLE_BRAVE_VPN_V2_APPS)
   NOTIMPLEMENTED();
 }
 
@@ -169,13 +153,27 @@ void BraveVpnServiceImpl::GetAllowLanTraffic(
   std::move(callback).Run(false, false);
 }
 
+void BraveVpnServiceImpl::ReconnectToAgent() {
+  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+#if BUILDFLAG(ENABLE_BRAVE_VPN_V2_APPS)
+  if (!agent_client_) {
+    return;
+  }
+  VLOG(1) << "Retrying agent connection on user request";
+  agent_client_->Reset();
+  agent_client_->EnsureConnected();
+#endif  // BUILDFLAG(ENABLE_BRAVE_VPN_V2_APPS)
+}
+
 void BraveVpnServiceImpl::UpdateConnectionState(
     mojom::ConnectionState state,
-    std::optional<std::string> connection_error) {
+    std::optional<std::string> connection_error,
+    UpdateConnectionStateMode mode) {
   const bool connection_error_changed =
       connection_error.has_value() &&
       *connection_error != last_connection_error_;
-  if (connection_state_ == state && !connection_error_changed) {
+  if (mode == UpdateConnectionStateMode::kNotifyIfChanged &&
+      connection_state_ == state && !connection_error_changed) {
     return;
   }
   connection_state_ = state;

@@ -215,8 +215,11 @@ void BraveVpnServiceImpl::OnAgentConnectionFailed(AgentClient::Error error) {
   std::string connection_error_message{AgentClient::ErrorToString(error)};
   LOG(ERROR) << "Agent connection failed: " << connection_error_message;
 
+  // Always notify: the UI waits for an answer to a pending agent retry, even
+  // if the state is already CONNECT_NO_AGENT.
   UpdateConnectionState(mojom::ConnectionState::CONNECT_NO_AGENT,
-                        std::move(connection_error_message));
+                        std::move(connection_error_message),
+                        UpdateConnectionStateMode::kNotifyAlways);
 }
 
 void BraveVpnServiceImpl::OnAgentLaunchFailed(
@@ -243,8 +246,11 @@ void BraveVpnServiceImpl::OnAgentLaunchFailed(
   // user-initiated connect starts a fresh sequence.
   agent_client_->Reset();
 
+  // Always notify: the UI waits for an answer to a pending agent retry, even
+  // if the state is already CONNECT_NO_AGENT.
   UpdateConnectionState(mojom::ConnectionState::CONNECT_NO_AGENT,
-                        std::move(connection_error_message));
+                        std::move(connection_error_message),
+                        UpdateConnectionStateMode::kNotifyAlways);
 }
 
 #endif  // BUILDFLAG(ENABLE_BRAVE_VPN_V2_APPS)

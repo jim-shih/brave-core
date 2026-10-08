@@ -92,6 +92,7 @@ class BraveVpnServiceImpl : public BraveVpnService
       GetSmartProxyRoutingStateCallback callback) override;
   void AllowLanTraffic(bool allow) override;
   void GetAllowLanTraffic(GetAllowLanTrafficCallback callback) override;
+  void ReconnectToAgent() override;
 #else   // !BUILDFLAG(IS_ANDROID)
   // mojom::ServiceHandler overrides:
   void GetPurchaseToken(GetPurchaseTokenCallback callback) override;
@@ -138,6 +139,13 @@ class BraveVpnServiceImpl : public BraveVpnService
  private:
   friend class BraveVpnServiceImplTest;
 
+#if !BUILDFLAG(IS_ANDROID)
+  enum class UpdateConnectionStateMode {
+    kNotifyIfChanged,
+    kNotifyAlways,
+  };
+#endif  // !BUILDFLAG(IS_ANDROID)
+
   // KeyedService overrides:
   void Shutdown() override;
 
@@ -161,10 +169,14 @@ class BraveVpnServiceImpl : public BraveVpnService
 #if !BUILDFLAG(IS_ANDROID)
   // Called by the agent or internal components to update the connection state.
   // An optional connection error string updates VPN's last connection error.
-  // Does nothing when neither the state nor the error change.
+  // With kNotifyIfChanged (default), does nothing when neither the state nor
+  // the error change. kNotifyAlways notifies observers regardless, for events
+  // the UI must see even if the state repeats (e.g. a failed agent retry).
   void UpdateConnectionState(
       mojom::ConnectionState state,
-      std::optional<std::string> connection_error = std::nullopt);
+      std::optional<std::string> connection_error = std::nullopt,
+      UpdateConnectionStateMode mode =
+          UpdateConnectionStateMode::kNotifyIfChanged);
 
   // BraveVpnService overrides:
   void SetConnectionStateForTesting(mojom::ConnectionState state) override;
