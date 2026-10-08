@@ -629,18 +629,26 @@ Calling `body()` on a message built with the legacy constructor CHECK-fails, so
 migrate the constructors first. Example:
 [6bfd6d0a49ece](https://chromium.googlesource.com/chromium/src/+/6bfd6d0a49ece).
 
+Features that reply (`ScriptMessageReceivedWithReply`) can receive messages that
+`prompt_facade.mm` builds with the legacy constructor, so they can't use
+`body()` until it is migrated: `ScriptMessageValue` has no constructor from
+`base::Value`, so it needs converting to an `NSObject` first. The plain
+`ScriptMessageReceived` features are done. `playlist` passes the dict on as a
+`base::DictValue`, and `protection_stats` iterates a list, which the non-const
+`ScriptMessageListValue::begin()` doesn't allow on a `body()`.
+
 - [ ] Legacy constructor: `ios/web/js_messaging/prompt_facade.mm:91`,
       `ios/browser/api/favicon/favicon_driver.mm:142`
 - [ ] `ios/browser/api/favicon/favicon_driver.mm:148`, `:156`
-- [ ] `ios/browser/brave_ads/ads_media_reporting_javascript_feature.mm:53`
+- [x] `ios/browser/brave_ads/ads_media_reporting_javascript_feature.mm:53`
 - [ ] `ios/browser/brave_search/brave_search_make_default_javascript_feature.mm:74`
 - [ ] `ios/browser/brave_shields/protection_stats_javascript_feature.mm:56`
 - [ ] `ios/browser/brave_shields/request_blocking/request_blocking_javascript_feature.mm:71`
-- [ ] `ios/browser/brave_talk/brave_talk_launcher_javascript_feature.mm:63`
+- [x] `ios/browser/brave_talk/brave_talk_launcher_javascript_feature.mm:63`
 - [ ] `ios/browser/playlist/playlist_javascript_feature.mm:125`
 - [ ] `ios/browser/skus/skus_javascript_feature.mm:167`
 - [ ] `ios/browser/web/de_amp/de_amp_javascript_feature.mm:102`
-- [ ] `ios/browser/web/document_fetch/document_fetch_javascript_feature.mm:76`
+- [x] `ios/browser/web/document_fetch/document_fetch_javascript_feature.mm:76`
 - [ ] `ios/browser/web/logins/logins_javascript_feature.mm:63`
 - [ ] `ios/web/js_messaging/message_handler_token.mm:24`
 - [ ] `ios/web/js_messaging/prompt_facade_unittest.mm:56`, `:206`
