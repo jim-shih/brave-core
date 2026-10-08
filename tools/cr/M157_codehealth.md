@@ -341,7 +341,7 @@ needed the same fix in cr154 and cr155.
 
 - [x] `ios/browser/providers/BUILD.gn:40`: add
       `"//ios/chrome/browser/providers/multiwindow:chromium_multiwindow"`
-- [ ] Also add
+- [x] Also add
       `//ios/chrome/browser/providers/switcher_info:chromium_switcher_info`
       ([339ec6f1b3c10](https://chromium.googlesource.com/chromium/src/+/339ec6f1b3c1077fc49c12165eda35800fe421f1)).
       Nothing in `ios/chrome` calls it yet, so it only fails to link once a
