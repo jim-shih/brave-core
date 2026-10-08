@@ -28,7 +28,6 @@ import './printing_page.js'
 // lit_mangler inserts.
 import '../brave_privacy_page/brave_personalization_options.js'
 import './privacy_page_index.js'
-import './reset_profile_dialog.js'
 import './safety_hub_page.js'
 import './settings_basic_page.js'
 import './settings_manage_profile.js'
