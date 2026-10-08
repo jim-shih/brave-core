@@ -96,16 +96,17 @@ ones, so `shouldGroupWithParent` never fires and link-clicked tabs stop being
 grouped with their parent. This fails silently, and the Linux build doesn't see
 it. The junit tests still call the old names too.
 
-- [ ] `android/java/org/chromium/chrome/browser/tabmodel/BraveTabCollectionTabModelImplBase.java:57`:
+- [x] `android/java/org/chromium/chrome/browser/tabmodel/BraveTabCollectionTabModelImplBase.java:57`:
       reflect `"isTabStateInitialized"`, or call it directly if it's visible
-- [ ] `android/javatests/org/chromium/chrome/browser/BytecodeTest.java:1387`:
-      update the `methodExists` name
-- [ ] `android/junit/src/org/chromium/chrome/browser/toolbar/top/BraveTabSwitcherActionMenuCoordinatorTest.java:79`
+      (c0fbf3b62d4, called directly)
+- [x] `android/javatests/org/chromium/chrome/browser/BytecodeTest.java:1387`:
+      update the `methodExists` name (c0fbf3b62d4)
+- [x] `android/junit/src/org/chromium/chrome/browser/toolbar/top/BraveTabSwitcherActionMenuCoordinatorTest.java:79`
       (`isTabModelRestored`),
       `android/junit/src/org/chromium/chrome/browser/tasks/tab_management/BraveTabGridContextMenuCoordinatorTest.java:111`
       and `:112`, and
       `android/junit/src/org/chromium/chrome/browser/tasks/tab_management/pinned_tabs/BravePinnedTabStripItemContextMenuCoordinatorTest.java:98`
-      (`tabGroupExists`)
+      (`tabGroupExists`, 3f4a2e9c286; `isTabModelRestored`, c0fbf3b62d4)
 
 ### Android: YouTube picture-in-picture no longer checks the Android version
 
