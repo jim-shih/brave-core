@@ -378,14 +378,15 @@ Android-only, so the Linux build doesn't catch it. The rebase fixed the
 neighbouring `disable_on_ntp` removal (68e8d68d4ea) and the user-pref check, not
 this.
 
-- [ ] `browser/ui/android/bottombar/java/src/org/chromium/chrome/browser/ui/bottombar/BraveBottomBarCoordinator.java:80`:
+- [x] `browser/ui/android/bottombar/java/src/org/chromium/chrome/browser/ui/bottombar/BraveBottomBarCoordinator.java:80`:
       drop the `shouldIncludeHomeButtonIfEnabled()` guard and always register
-      the observer
-- [ ] Same file, `:94`: override `createActionConfigs(BottomBarView view)` and
+      the observer (4b35edefb7a)
+- [x] Same file, `:94`: override `createActionConfigs(BottomBarView view)` and
       call `super.createActionConfigs(view)`
-- [ ] Same file, `:130`: make the `if (shouldIncludeHomeButton)` block
+      (4b35edefb7a)
+- [x] Same file, `:130`: make the `if (shouldIncludeHomeButton)` block
       unconditional, and fix the comments at `:72` and `:128` about the 1C
-      variations
+      variations (4b35edefb7a)
 
 ### Android sync settings show "Search AI Mode and connected apps"
 
