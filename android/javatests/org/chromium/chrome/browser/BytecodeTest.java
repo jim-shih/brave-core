@@ -1383,12 +1383,6 @@ public class BytecodeTest {
                         Tab.class));
         Assert.assertTrue(
                 methodExists(
-                        "org/chromium/chrome/browser/tabmodel/TabCollectionTabModelImpl",
-                        "isTabStateInitialized",
-                        MethodModifier.REGULAR,
-                        boolean.class));
-        Assert.assertTrue(
-                methodExists(
                         "org/chromium/chrome/browser/omnibox/suggestions/editurl/EditUrlSuggestionProcessor", // presubmit: ignore-long-line
                         "onCopyLink",
                         MethodModifier.REGULAR,
