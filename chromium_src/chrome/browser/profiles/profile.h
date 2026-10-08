@@ -23,6 +23,9 @@
 #define IsPrimaryOTRProfile                 \
   IsPrimaryOTRProfile_ChromiumImpl() const; \
   bool IsPrimaryOTRProfile
+#define IsPrimaryOTRProfileWithRegularParent                 \
+  IsPrimaryOTRProfileWithRegularParent_ChromiumImpl() const; \
+  bool IsPrimaryOTRProfileWithRegularParent
 
 #include <chrome/browser/profiles/profile.h>  // IWYU pragma: export
 
@@ -30,5 +33,6 @@
 #undef IsIncognitoProfile
 #undef HasPrimaryOTRProfile
 #undef PrimaryID
+#undef IsPrimaryOTRProfileWithRegularParent
 
 #endif  // BRAVE_CHROMIUM_SRC_CHROME_BROWSER_PROFILES_PROFILE_H_

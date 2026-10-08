@@ -20,9 +20,12 @@
 
 #define IsIncognitoProfile IsIncognitoProfile_ChromiumImpl
 #define IsPrimaryOTRProfile IsPrimaryOTRProfile_ChromiumImpl
+#define IsPrimaryOTRProfileWithRegularParent \
+  IsPrimaryOTRProfileWithRegularParent_ChromiumImpl
 #include <chrome/browser/profiles/profile.cc>
 #undef IsIncognitoProfile
 #undef IsPrimaryOTRProfile
+#undef IsPrimaryOTRProfileWithRegularParent
 #undef BRAVE_ALLOWS_BROWSER_WINDOWS
 
 namespace {
@@ -62,6 +65,13 @@ bool Profile::IsPrimaryOTRProfile() const {
   if (IsTor())
     return true;
   return IsPrimaryOTRProfile_ChromiumImpl();
+}
+
+bool Profile::IsPrimaryOTRProfileWithRegularParent() const {
+  if (IsTor()) {
+    return true;
+  }
+  return IsPrimaryOTRProfileWithRegularParent_ChromiumImpl();
 }
 
 Profile::OTRProfileID
