@@ -1384,7 +1384,7 @@ public class BytecodeTest {
         Assert.assertTrue(
                 methodExists(
                         "org/chromium/chrome/browser/tabmodel/TabCollectionTabModelImpl",
-                        "isTabModelRestored",
+                        "isTabStateInitialized",
                         MethodModifier.REGULAR,
                         boolean.class));
         Assert.assertTrue(
