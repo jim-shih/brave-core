@@ -122,14 +122,17 @@ Android 10 devices now get the YouTube PiP icon and entry. Brave's comment at
 `BraveYouTubeScriptInjectorNativeHelper.java:52` ("Covers SDK < R") is now
 wrong.
 
-- [ ] Add `Build.VERSION.SDK_INT >= Build.VERSION_CODES.R` (or one shared
+- [x] Add `Build.VERSION.SDK_INT >= Build.VERSION_CODES.R` (or one shared
       helper) at
       `android/java/org/chromium/chrome/browser/youtube_script_injector/BraveYouTubeScriptInjectorNativeHelper.java:55`,
       `android/java/org/chromium/chrome/browser/toolbar/top/BraveToolbarLayoutImpl.java:511`,
       `:639` and `:1130`, and
       `android/javatests/org/chromium/chrome/browser/toolbar/BraveYouTubePipIconTest.java:64`
-- [ ] Check `BraveYouTubePictureInPictureController.java:673`, which goes
-      through the native availability check
+      (901e4cd3453, via
+      `BraveYouTubeScriptInjectorNativeHelper.isPictureInPictureEnabled`)
+- [x] Check `BraveYouTubePictureInPictureController.java:673`, which goes
+      through the native availability check: it only re-enters PiP after
+      an earlier entry, which the helper already gated
 
 ### Brave chrome-untrusted:// pages can't load images or media from other hosts
 
