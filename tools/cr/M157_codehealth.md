@@ -357,12 +357,14 @@ Brave's subclass declares the old 19 parameters and calls `super(...)` with
 them, so it doesn't compile, and the bytecode constructor redirect to it needs
 matching descriptors. Android-only, so the Linux build doesn't catch it.
 
-- [ ] `android/java/org/chromium/chrome/browser/omnibox/suggestions/BraveAutocompleteMediator.java:63`
+- [x] `android/java/org/chromium/chrome/browser/omnibox/suggestions/BraveAutocompleteMediator.java:63`
       and the `super(...)` call at `:84`: add the parameter (and its
       `org.chromium.base.supplier.NonNullObservableSupplier` import)
-- [ ] Check the `AutocompleteMediator` redirect in
+      (fe014ed2302)
+- [x] Check the `AutocompleteMediator` redirect in
       `build/android/bytecode/java/org/brave/bytecode/BraveAutocompleteMediatorClassAdapter.java`
-      and `BytecodeTest.java` for constructor descriptors
+      and `BytecodeTest.java` for constructor descriptors: the redirect
+      names no descriptor, and `BytecodeTest` was updated (fe014ed2302)
 
 ### Android: `BraveBottomBarCoordinator` no longer compiles
 
