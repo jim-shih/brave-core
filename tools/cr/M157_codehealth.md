@@ -61,13 +61,13 @@ fails silently:
 - `#privacyGuideLinkRow` is no longer hidden (it is behind
   `isPrivacyGuideAvailable`).
 
-- [ ] Port `br/privacy_page.ts` to
+- [x] Port `br/privacy_page.ts` to
       `chromium_src/chrome/browser/resources/settings/privacy_page/privacy_page.html.ts.lit_mangler.ts`,
       as for `security_page` and `add_site_dialog`: insert the personalization
       options after `#siteSettingsLinkRow` (it binds with `pref-key`, no
-      `prefs`), and hide both link rows. Lit templates have no nested
-      `<template>`, so `#privacyGuideLinkRow` can be queried directly
-- [ ] Delete `br/privacy_page.ts` and its import in `br/index.ts`
+      `prefs`), and hide both link rows. `#privacyGuideLinkRow` is in a nested
+      template, so it needs its own `mangle` with a template predicate
+- [x] Delete `br/privacy_page.ts` and its import in `br/index.ts`
 
 ### Autofill category cards show chips again
 
