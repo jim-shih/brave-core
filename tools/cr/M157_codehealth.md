@@ -79,7 +79,7 @@ back on every category card, including Brave's `#emailAliasesCard`. The injected
 card itself should still work (`card-title` maps to `cardTitle`, and
 `on-data-category-click` bubbles).
 
-- [ ] `browser/resources/settings/br/autofill_page.ts:181`: drop the
+- [x] `browser/resources/settings/br/autofill_page.ts:181`: drop the
       `category-reference-card` entry, and hide the two parts with `injectStyle`
       from `lit_overriding.js`, as `appearance_page.ts` does
 
