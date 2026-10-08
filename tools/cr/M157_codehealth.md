@@ -482,26 +482,26 @@ Upstream now also cancels when the window shrinks below 400x300
 These elements went Lit in earlier lifts, so their Polymer overrides do nothing.
 `polymer_overriding.ts` doesn't report it.
 
-- [ ] `browser/resources/settings/br/sync_controls.ts:12`: the AI Chat sync
+- [x] `browser/resources/settings/br/sync_controls.ts:12`: the AI Chat sync
       toggle (`kBraveSyncAIChat`) is never injected, and the payments toggle
       isn't removed (Lit since
       [6133554291740](https://chromium.googlesource.com/chromium/src/+/6133554291740))
-- [ ] `browser/resources/settings/br/performance_page.ts:8`:
+- [x] `browser/resources/settings/br/performance_page.ts:8`:
       `#discardRingTreatmentToggleButton` is no longer removed (Lit since
       [7e42745b4fec1](https://chromium.googlesource.com/chromium/src/+/7e42745b4fec1))
-- [ ] `browser/resources/settings/br/edit_dictionary_page.ts:9`: style override
+- [x] `browser/resources/settings/br/edit_dictionary_page.ts:9`: style override
       (Lit since
       [e5e2d063e35df](https://chromium.googlesource.com/chromium/src/+/e5e2d063e35df))
-- [ ] `browser/resources/settings/br/reset_profile_dialog.ts:10`:
+- [x] `browser/resources/settings/br/reset_profile_dialog.ts:10`:
       `#sendSettings` is no longer hidden and unchecked. The upload itself stays
       blocked by
       `patches/chrome-browser-profile_resetter-reset_report_uploader.cc.patch`.
       (Lit since
       [cb3ba35217a6c](https://chromium.googlesource.com/chromium/src/+/cb3ba35217a6c))
-- [ ] `chromium_src/chrome/browser/resources/side_panel/bookmarks/power_bookmarks_list.ts:41`:
+- [x] `chromium_src/chrome/browser/resources/side_panel/bookmarks/power_bookmarks_list.ts:41`:
       the refresh after moving a bookmark in custom order never runs (Lit since
       [a1ded79ae4558](https://chromium.googlesource.com/chromium/src/+/a1ded79ae4558))
-- [ ] `ui/webui/resources/polymer_overriding.ts`: log an error, and fail tests,
+- [x] `ui/webui/resources/polymer_overriding.ts`: log an error, and fail tests,
       when an element with registered modifications isn't a Polymer element
 
 ### Pre-existing: close-window warning stops after a cancelled quit
