@@ -442,7 +442,7 @@ and added `AIDecisionModelAPIForWorkers`
 An unknown name in `EnableFeatureFromString` only logs in debug builds, so
 Brave's disablement silently does nothing. The API is still experimental only.
 
-- [ ] `renderer/brave_content_renderer_client.cc:146`: disable
+- [x] `renderer/brave_content_renderer_client.cc:146`: disable
       `AIDecisionModelAPI` and `AIDecisionModelAPIForWorkers`. It matters more
       now that `chrome://flags#decisions-api` can turn the API on
       ([8651d46cbd8ad](https://chromium.googlesource.com/chromium/src/+/8651d46cbd8ad6a3ae4ed6859892094250e36f09))
